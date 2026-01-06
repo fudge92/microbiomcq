@@ -1666,8 +1666,8 @@
     }
 
     function updateAccuracyBar() {
-      const progressPercentage = Math.round((score / activeQuestions.length) * 100);
-      const accuracy = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
+      const progressPercentage = ((score / activeQuestions.length) * 100).toFixed(2);
+      const accuracy = totalAnswered > 0 ? ((score / totalAnswered) * 100).toFixed(2) : 0;
       document.getElementById('progressBar').style.width = progressPercentage + '%';
       document.getElementById('progressPercent').textContent = progressPercentage + '%';
       document.getElementById('progressText').textContent = `${score}/${activeQuestions.length} Correct • Accuracy: ${accuracy}%`;
@@ -1675,23 +1675,23 @@
 
 
     function updateProgressBar() {
-      const progressPercentage = Math.round((score / activeQuestions.length) * 100);
-      const accuracy = totalAnswered > 0 ? Math.round((score / totalAnswered) * 100) : 0;
+      const progressPercentage = ((score / activeQuestions.length) * 100).toFixed(2);
+      const accuracy = totalAnswered > 0 ? ((score / totalAnswered) * 100).toFixed(2) : 0;
       document.getElementById('progressBar').style.width = progressPercentage + '%';
       document.getElementById('progressPercent').textContent = progressPercentage + '%';
       document.getElementById('progressText').textContent = `${score}/${activeQuestions.length} Correct • Accuracy: ${accuracy}%`;
-}
+    }
 
 
     function showResults() {
       document.getElementById('quizScreen').classList.add('hidden');
       document.getElementById('resultsScreen').classList.remove('hidden');
-      
-      const percentage = Math.round((score / activeQuestions.length) * 100);
+  
+      const percentage = ((score / activeQuestions.length) * 100).toFixed(2);
       const scoreMessage = percentage >= 80 ? '⭐ Outstanding!' : 
-                          percentage >= 60 ? '👍 Good Job!' : 
-                          '📚 Keep Learning!';
-      
+                      percentage >= 60 ? '👍 Good Job!' : 
+                      '📚 Keep Learning!';
+  
       document.getElementById('finalScore').textContent = `${score}/${activeQuestions.length} ${scoreMessage}`;
       document.getElementById('correctCount').textContent = score;
       document.getElementById('percentageScore').textContent = percentage + '%';
