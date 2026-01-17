@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microbiology Quiz Master</title>
+  <style>
+    :root {
+      --primary: #1abc9c;
+      --primary-dark: #16a085;
+      --success: #27ae60;
+      --error: #e74c3c;
+      --warning: #f39c12;
+      --bg-dark: #0b1929;
+      --bg-secondary: #1a3a3a;
+      --text-light: #ecf0f1;
+      --text-muted: #95a5a6;
+      --border: #2d5a5a;
+      --petri-green: #2ecc71;
+      --petri-blue: #3498db;
+      --petri-purple: #9b59b6;
+      --petri-orange: #e67e22;
+      --petri-red: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #0f2525 100%);
+      color: var(--text-light);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ===== WELCOME SCREEN ===== */
+    .welcome-screen {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, #1e4545 100%);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 50px 40px;
+      box-shadow: 0 30px 80px rgba(26, 188, 156, 0.2);
+      text-align: center;
+    }
+
+    .welcome-header {
+      margin-bottom: 40px;
+    }
+
+    .welcome-header h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--petri-green), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .welcome-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .emoji-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.5);
+      color: var(--text-light);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(26, 188, 156, 0.3);
+      background: rgba(26, 188, 156, 0.1);
+    }
+
+    .options-section {
+      margin-bottom: 30px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .options-section h3 {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: var(--text-light);
+    }
+
+    .option-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .option-btn {
+      padding: 10px 16px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary);
+      background: rgba(26, 188, 156, 0.15);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--bg-dark);
+      box-shadow: 0 0 15px rgba(26, 188, 156, 0.5);
+      transform: scale(1.05);
+    }
+
+    .custom-input-section {
+      margin-bottom: 30px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      display: none;
+    }
+
+    .custom-input-section.show {
+      display: block;
+    }
+
+    .custom-input-section label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .custom-input-section input[type="number"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      background: rgba(26, 188, 156, 0.1);
+      color: var(--text-light);
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .custom-input-section input[type="number"]:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(26, 188, 156, 0.4);
+      background: rgba(26, 188, 156, 0.2);
+    }
+
+    .custom-input-section input[type="number"]::placeholder {
+      color: var(--text-muted);
+    }
+
+    .start-btn {
+      padding: 14px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary), var(--petri-green));
+      color: var(--bg-dark);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 20px;
+    }
+
+    .start-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(26, 188, 156, 0.4);
+    }
+
+    .start-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ===== QUIZ SCREEN ===== */
+    .quiz-card {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, #1e4545 100%);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 40px 30px;
+      box-shadow: 0 30px 80px rgba(26, 188, 156, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--petri-green), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .user-info {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .progress-section {
+      margin-bottom: 30px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--petri-green), var(--primary));
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    .question-index-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+      order: 2;
+    }
+
+    .question-index-btn {
+      aspect-ratio: 1;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-light);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .question-index-btn:hover {
+      border-color: var(--primary);
+      background: rgba(26, 188, 156, 0.2);
+    }
+
+    .question-index-btn.answered-correct {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+
+    .question-index-btn.answered-incorrect {
+      background: var(--error);
+      border-color: var(--error);
+      color: white;
+    }
+
+    .question-index-btn.skipped {
+      background: #555;
+      border-color: #666;
+      color: #999;
+    }
+
+    .question-index-btn.current {
+      border-color: var(--primary);
+      background: rgba(26, 188, 156, 0.3);
+    }
+
+    .question-section {
+      margin-bottom: 30px;
+      order: 1;
+    }
+
+    .question-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      color: #f1f5f9;
+    }
+
+    .question-text .question-number {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      padding: 16px 18px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.7);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .option:hover {
+      border-color: var(--primary);
+      background: rgba(26, 188, 156, 0.1);
+      transform: translateX(4px);
+    }
+
+    .option.selected {
+      border-color: var(--primary);
+      background: rgba(26, 188, 156, 0.2);
+    }
+
+    .option.correct {
+      border-color: var(--success);
+      background: rgba(39, 174, 96, 0.1);
+    }
+
+    .option.incorrect {
+      border-color: var(--error);
+      background: rgba(231, 76, 60, 0.1);
+    }
+
+    .option-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: bold;
+    }
+
+    .option.selected .option-checkbox {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: var(--bg-dark);
+    }
+
+    .option.correct .option-checkbox::after {
+      content: '✓';
+      color: var(--success);
+    }
+
+    .option.incorrect .option-checkbox::after {
+      content: '✗';
+      color: var(--error);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(26, 188, 156, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: var(--border);
+      color: var(--text-light);
+    }
+
+    .btn-secondary:hover {
+      background: #3d7a7a;
+      transform: translateY(-2px);
+    }
+
+    /* ===== RESULTS SCREEN ===== */
+    .results-screen {
+      text-align: center;
+    }
+
+    .results-screen h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #f1f5f9;
+    }
+
+    .score-display {
+      font-size: 56px;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--petri-green), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 20px 0;
+    }
+
+    .score-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .score-item {
+      padding: 20px;
+      background: rgba(46, 204, 113, 0.1);
+      border: 2px solid rgba(46, 204, 113, 0.3);
+      border-radius: 8px;
+    }
+
+    .score-item-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--petri-green);
+    }
+
+    .score-item-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .exam-wishes {
+      margin-top: 30px;
+      padding: 25px;
+      background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(26, 188, 156, 0.15));
+      border: 2px solid rgba(46, 204, 113, 0.3);
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--petri-green);
+      text-align: center;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+    }
+
+    .exam-wishes span {
+      display: block;
+      margin-top: 10px;
+      color: var(--primary);
+      font-size: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: var(--petri-green);
+    }
+
+    @media (max-width: 600px) {
+      .quiz-card {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .question-section {
+        order: 1;
+      }
+
+      .question-index-container {
+        order: 2;
+      }
+
+      .quiz-card,
+      .welcome-screen {
+        padding: 25px 20px;
+      }
+
+      .header h1,
+      .welcome-header h1 {
+        font-size: 22px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .score-details {
+        grid-template-columns: 1fr;
+      }
+
+      .question-index-container {
+        grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-screen">
+      <div class="welcome-header">
+        <span class="emoji-icon">🔬</span>
+        <h1>Microbiology Quiz Master</h1>
+        <p>Master the World of Bacteria, Viruses & Microorganisms</p>
+      </div>
+
+      <form onsubmit="startQuiz(event)">
+        <div class="form-group">
+          <label for="userName">Enter Your Name:</label>
+          <input type="text" id="userName" placeholder="Your name" required>
+        </div>
+
+        <div class="options-section">
+          <h3>Select Quiz Mode:</h3>
+          <div class="option-group">
+            <button type="button" class="option-btn selected" onclick="selectMode('sequential', this)">📊 Sequential</button>
+            <button type="button" class="option-btn" onclick="selectMode('randomized', this)">🎲 Randomized</button>
+          </div>
+        </div>
+
+        <div class="custom-input-section" id="customInputSection">
+          <h3>Randomized Options:</h3>
+          <div class="option-group">
+            <button type="button" class="option-btn selected" onclick="selectRandomMode('custom', this)">📝 Custom</button>
+            <button type="button" class="option-btn" onclick="selectRandomMode('all', this)">🎯 All Questions</button>
+          </div>
+          <div id="customInputBox" style="margin-top: 15px;">
+            <label for="customQuestionCount">Enter Number of Questions (1 - 143):</label>
+            <input type="number" id="customQuestionCount" placeholder="Enter a number" min="1" max="143">
+          </div>
+        </div>
+
+        <button type="submit" class="start-btn" id="startBtn">Start Quiz 🚀</button>
+      </form>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="hidden">
+      <div class="quiz-card">
+        <div class="header">
+          <h1>🦠 Microbiology Quiz</h1>
+          <div class="user-info" id="userInfo"></div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-info">
+            <span id="progressText">Question 1 of 6</span>
+            <span id="accuracyText">Correct: 0.00%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="question-index-container" id="questionIndexContainer"></div>
+
+        <div class="question-section">
+          <div class="question-text" id="questionText"></div>
+          <div class="options" id="optionsContainer"></div>
+          <div id="selectedInfo" style="margin-top: 12px; font-size: 13px; color: var(--text-muted); text-align: right;"></div>
+        </div>
+
+        <div class="buttons">
+          <button class="btn-secondary" onclick="skipQuestion()">Skip</button>
+          <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="hidden">
+      <div class="quiz-card results-screen">
+        <h2>Quiz Complete! 🎉</h2>
+        <div class="score-display" id="finalScore"></div>
+        <div class="score-details">
+          <div class="score-item">
+            <div class="score-item-value" id="correctCount">0</div>
+            <div class="score-item-label">Correct Answers</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-value" id="percentageScore">0%</div>
+            <div class="score-item-label">Percentage</div>
+          </div>
+        </div>
+        <div class="exam-wishes">
+          🌟 <strong>ALL THE BEST FOR YOUR MICROBIOLOGY EXAM!</strong> 🌟
+          <span>Master every concept, ace every question!</span>
+        </div>
+        <button class="btn-primary" onclick="restartQuiz()" style="width: 100%; margin-top: 20px;">Try Again 🔄</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2026 Microbiology Quiz Master | Created by <strong>@soham | 311</strong></p>
+      <p style="margin-top: 12px; font-size: 13px;">If you find any discrepancies in the answers, please <a href="https://wa.me/79960970030?text=hi%2C%20i%20found%20an%20error%20in%20the%20mcq%20quiz" target="_blank">report here</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "The prototype of type-II hypersensitivity reaction is:",
+        options: ["Arthus reaction", "SLE", "Auto immune hemolytic anemia", "Contact dermatitis"],
+        correct: [2]
+      },
+      {
+        question: "Which is an example of type-III hypersensitivity:",
+        options: ["Contact dermatitis", "Hemolytic anemia", "Serum sickness", "Goodpasture's syndrome"],
+        correct: [2]
+      },
+      {
+        question: "Delayed hypersensitivity involves:",
+        options: ["Neutrophils", "Eosinophils", "Monocytes", "Lymphocytes"],
+        correct: [3]
+      },
+      {
+        question: "Contact dermatitis is:",
+        options: ["Type-I hypersensitivity", "Type-II hypersensitivity", "Type-III hypersensitivity", "Type-IV hypersensitivity"],
+        correct: [3]
+      },
+      {
+        question: "Type-IV hypersensitivity reaction is:",
+        options: ["Serum sickness", "Arthus reaction", "Anaphylaxis", "Granuloma"],
+        correct: [3]
+      },
+      {
+        question: "True about anaphylaxis:",
+        options: ["Type-I reaction", "Large amount of histamine released", "Cytokines IL-4, IL-5, IL-6, GM-CSF are released", "Mediated through allergen-specific IgE"],
+        correct: [0, 1, 2, 3]
+      },
+      {
+        question: "Name peculiarities of etiological agents of nosocomial infections:",
+        options: ["Have multiple drug resistance", "More virulent", "Have wide spectrum of antagonistic activity", "Sensitive to many antibiotics", "Non-resistant in environment"],
+        correct: [0, 1, 2]
+      },
+      {
+        question: "Which diseases can be caused by Streptococci?",
+        options: ["Chronic tonsillitis", "Scarlet fever", "Rheumatic fever", "Acute glomerulonephritis", "Hepatitis", "Suppurative diseases"],
+        correct: [0, 1, 2, 3, 5]
+      },
+      {
+        question: "Name the causative agent of scarlet fever:",
+        options: ["Staphylococcus aureus", "Streptococcus pyogenes beta-hemolytic group A", "Enterococcus faecalis", "Staphylococcus epidermidis", "Meningococci"],
+        correct: [1]
+      },
+      {
+        question: "Which species of Staphylococci can cause diseases in humans?",
+        options: ["S. hominis", "S. hemolyticus", "S. aureus", "S. epidermidis", "S. saprophyticus"],
+        correct: [2, 3, 4]
+      },
+      {
+        question: "Name factors of pathogenicity of S. aureus:",
+        options: ["Exotoxins production", "Hyaluronidase", "Production of lipase", "Coagulase production", "Catalase activity"],
+        correct: [0, 1, 3, 4]
+      },
+      {
+        question: "Name selective media for staphylococci:",
+        options: ["Salt yolk agar", "Milk salt agar", "Blood agar", "Endo media", "Muller-Hinton agar"],
+        correct: [0, 1]
+      },
+      {
+        question: "Which methods are used for laboratory diagnosis of Staphylococcal infections?",
+        options: ["Microscopic examination", "Serological", "Bacteriological", "Allergic skin test", "Neutralization reaction"],
+        correct: [0, 2]
+      },
+      {
+        question: "Which materials are used for laboratory diagnosis of Staphylococcal infections?",
+        options: ["Pus", "Blood", "Urine", "CSF", "Feces"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Which specific preparations are used for prophylaxis of staphylococcal infections?",
+        options: ["Toxoid", "Specific gamma globulin", "Specific bacteriophage", "Antibiotics", "Colibacterin"],
+        correct: [0, 1, 2]
+      },
+      {
+        question: "Which diseases can cause gonococci?",
+        options: ["Gonorrhoeae", "Meningitis", "Gonococcal conjunctivitis of newborns", "Arthritis", "Pharyngitis"],
+        correct: [0, 2, 3, 4]
+      },
+      {
+        question: "Morphological properties of gonococci:",
+        options: ["Diplococci", "Nonsporing", "Nonmotile", "Capsulated", "Motile"],
+        correct: [0, 1, 2]
+      },
+      {
+        question: "For cultivation of gonococci are used:",
+        options: ["Endo media", "Salt yolk agar", "Mueller-Hinton agar", "Thayer-Martin medium", "Blood agar"],
+        correct: [2, 3, 4]
+      },
+      {
+        question: "Biochemical properties of gonococci:",
+        options: ["Biochemically active", "Glucose positive", "Maltose positive", "H2S positive", "Oxidase positive", "Catalase positive"],
+        correct: [1, 4, 5]
+      },
+      {
+        question: "Name morphological properties of meningococci:",
+        options: ["Diplococci", "Nonmotile", "Nonsporing", "Capsulated", "Motile"],
+        correct: [0, 1, 2, 3]
+      },
+      {
+        question: "Which diseases can cause meningococci?",
+        options: ["Pharyngitis", "Rhinitis", "Meningitis", "Septicemia", "Intestinal infections"],
+        correct: [0, 2, 3]
+      },
+      {
+        question: "Which methods are used for laboratory diagnosis of meningococcal infections?",
+        options: ["Culture method", "Microscopic examination of CSF", "Serological reactions", "Detection of antigen of N. meningitidis in CSF", "Allergic skin test"],
+        correct: [0, 1, 2, 3]
+      },
+      {
+        question: "IgG is normal or slightly reduced in:",
+        options: ["Wiskott Aldrich syndrome", "Selective IgA deficiency", "Di George syndrome", "Common variable deficiency"],
+        correct: [3]
+      },
+      {
+        question: "MHC class II antigens are located on which cells:",
+        options: ["B-cells", "T-cells", "Macrophages", "Dendritic cells", "RBC"],
+        correct: [0, 2, 3]
+      },
+      {
+        question: "Which culture media are used for cultivation of nonsporing anaerobes?",
+        options: ["Salt yolk agar", "Culture media with nalidixic acid", "Blood agar", "Blood agar with reducing agent (hemin)", "Blood agar with neomycin, yeast extract, hemin and vitamin K"],
+        correct: [1, 3, 4]
+      },
+      {
+        question: "Which genera of nonsporing anaerobes can cause clinical infections?",
+        options: ["Staphylococcus", "Peptococcus", "Peptostreptococcus", "Bacteroides", "Fusobacterium", "Veillonella"],
+        correct: [1, 2, 3, 4, 5]
+      },
+      {
+        question: "Reaction of soluble antigen with antibody is known as:",
+        options: ["Agglutination", "Flocculation", "Precipitation", "CFT"],
+        correct: [2]
+      },
+      {
+        question: "Diagnostic immune serum may be:",
+        options: ["Agglutinating", "Precipitating", "Haemolytic", "Against rabbit immunoglobulin", "Antiviral"],
+        correct: [0, 1, 4]
+      },
+      {
+        question: "Skin test based on neutralization reaction is:",
+        options: ["Casoni", "Tuberculin test", "Lepromin test", "Schick test"],
+        correct: [3]
+      },
+      {
+        question: "Which toxins take part in pathogenesis of tetanus?",
+        options: ["Erythrogenic", "Tetanolysin", "Enterotoxin", "Tetanospasmin", "LPS", "Exotoxin"],
+        correct: [1, 3, 5]
+      },
+      {
+        question: "Which preparations are used for specific treatment of tetanus?",
+        options: ["Antibiotics", "Tetanus toxoid", "Specific antitoxic serum", "Specific immunoglobulin", "DPT"],
+        correct: [2, 3]
+      },
+      {
+        question: "Modes of transmission in case of brucellosis:",
+        options: ["Through contaminated food", "By tick bites", "By respiratory droplets", "By contact", "Through contaminated water"],
+        correct: [0, 3]
+      },
+      {
+        question: "For cultivation of brucella are used:",
+        options: ["Alkaline media", "Salt yolk agar", "Endo media", "Liver infusion media", "Serum dextrose agar", "Trypticase soy agar"],
+        correct: [3, 4, 5]
+      },
+      {
+        question: "Source of infection in case of brucellosis are:",
+        options: ["Mice", "Rabbits", "Goats", "Cattle", "Buffaloes", "Pigs"],
+        correct: [2, 3, 4, 5]
+      },
+      {
+        question: "Causative agent of anthrax is:",
+        options: ["Bacillus anthracis", "Clostridium botulinum", "Bacteroides fragilis", "Staphylococcus aureus", "Clostridium novyi"],
+        correct: [0]
+      },
+      {
+        question: "Morphological properties of Bacillus anthracis:",
+        options: ["Cocci", "Bacilli", "Non sporing", "Sporing", "Nonmotile", "Capsulated"],
+        correct: [1, 3, 4, 5]
+      },
+      {
+        question: "For prophylaxis of anthrax are used:",
+        options: ["Toxoid", "Bacteriophage", "Killed vaccine", "Specific gamma globulin", "Live vaccine"],
+        correct: [2, 4]
+      },
+      {
+        question: "Properties of Francisella tularensis:",
+        options: ["Bacilli", "Gram negative", "Aerobes", "Cocobacilli", "Sporeforming", "Can grow only on special selective media"],
+        correct: [1, 2, 3, 5]
+      },
+      {
+        question: "Name modes of transmission of tularemia:",
+        options: ["Through contaminated water", "By contact", "By respiratory droplets", "Through contaminated food", "By tick bites", "By sexual contact"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Morphological peculiarities of Yersinia pestis:",
+        options: ["Gram positive bacilli", "Gram negative bacilli", "Nonsporing", "Nonmotile", "Form capsule on media with serum", "Sporeforming"],
+        correct: [1, 2, 3, 4]
+      },
+      {
+        question: "Mechanism of development of resistance to antibiotics:",
+        options: ["Proteolytic activity", "Mutations", "Recombinations", "Plasmid coded", "Decreased permeability to the drugs", "Development of alternative metabolic pathways", "Production of enzymes inactivating the drugs"],
+        correct: [1, 2, 3, 4, 5, 6]
+      },
+      {
+        question: "The valency of IgM is:",
+        options: ["1", "4", "2", "5"],
+        correct: [3]
+      },
+      {
+        question: "Reaginic immunoglobulin is:",
+        options: ["IgA", "IgG", "IgM", "IgE", "IgD"],
+        correct: [3]
+      },
+      {
+        question: "Immunoglobulin which is produced first by the fetus in response to infection:",
+        options: ["IgD", "IgM", "IgG", "IgA", "IgE"],
+        correct: [1]
+      },
+      {
+        question: "The use of monoclonal antibodies:",
+        options: ["Immunotherapy", "Immunological identification of cells and tissues", "Radioimmunoimaging", "All of the above"],
+        correct: [3]
+      },
+      {
+        question: "Immunoglobulin which crosses the placenta:",
+        options: ["IgG", "IgM", "IgA", "IgE", "IgD"],
+        correct: [0]
+      },
+      {
+        question: "Variable portion of antibody molecule is:",
+        options: ["N-Terminal", "C-Terminal", "CHO moiety", "None"],
+        correct: [0]
+      },
+      {
+        question: "Secretory piece of IgA is synthesized in:",
+        options: ["T-cells", "Lymph nodes", "B-cells", "Mucosal epithelium"],
+        correct: [3]
+      },
+      {
+        question: "Antigen binding site in immunoglobulin is:",
+        options: ["Variable region", "Hypervariable region", "Hinge region", "Constant region", "Idiotype"],
+        correct: [0, 1]
+      },
+      {
+        question: "Name causative agents of gas gangrene:",
+        options: ["Clostridium tetani", "Clostridium botulinum", "Clostridium perfringens", "Clostridium novyi", "Clostridium septicum", "Clostridium histolyticum"],
+        correct: [2, 3, 4, 5]
+      },
+      {
+        question: "What can we use for specific prophylaxis of gas gangrene?",
+        options: ["Horses antitoxic serum against Cl. perfringens, Clostridium septicum and Clostridium novyi", "Specific toxoid", "Antibiotics", "Surgery", "Killed vaccine"],
+        correct: [0, 1]
+      },
+      {
+        question: "Name preparations for treatment and specific prophylaxis of influenza:",
+        options: ["Acyclovir", "Antibiotics", "Bifidobacterin", "Interferon", "Inactivated vaccine", "Specific gamma globulin", "Ribavirin"],
+        correct: [3, 4, 5, 6]
+      },
+      {
+        question: "List structural and biological properties of influenza virus:",
+        options: ["Contains DNA", "Has hemagglutinin", "Has neuraminidase", "Has reverse transcriptase", "Undergoes antigenic variation due antigenic drift", "Undergoes antigenic variation due antigenic shift"],
+        correct: [1, 2, 4, 5]
+      },
+      {
+        question: "Which methods and material are used for rapid diagnosis of influenza?",
+        options: ["Demonstration of virus antigen on nasopharyngeal cell surface by immunofluorescence", "Detection of viral RNA by reverse transcriptase PCR", "ELISA test for detection of viral antigen", "Blood", "Throat gargling", "Feces"],
+        correct: [0, 1, 2, 4]
+      },
+      {
+        question: "Name modes of transmission of influenza virus:",
+        options: ["By respiratory droplets", "Through contaminated food", "Through contaminated water", "Through placenta", "By blood transfusion"],
+        correct: [0]
+      },
+      {
+        question: "Interferon is in nature:",
+        options: ["Protein", "Polysaccharides", "Lipid", "LPS", "All of the above"],
+        correct: [0]
+      },
+      {
+        question: "Interferon:",
+        options: ["Is species specific", "Reacts directly with virus particles to inactivate them", "Reacts with cells, making them resistant to various viruses", "Is produced at high levels in cells but requires inducer for activity"],
+        correct: [0, 2]
+      },
+      {
+        question: "Complement binding immunoglobulin via classical pathway:",
+        options: ["IgG and IgM", "IgA and IgG", "IgG and IgD", "IgD and IgE"],
+        correct: [0]
+      },
+      {
+        question: "NK cells are:",
+        options: ["Activated macrophages", "Antibody-activated T cells", "Null cells activated by complement", "Independent of antibody"],
+        correct: [3]
+      },
+      {
+        question: "NK cell provides immunity against:",
+        options: ["Viruses", "Fungus", "Bacteria", "Chlamydia"],
+        correct: [0]
+      },
+      {
+        question: "Opsonisation is by:",
+        options: ["IgG", "IgA", "IgM", "IgE"],
+        correct: [0, 2]
+      },
+      {
+        question: "HLA III gene codes for:",
+        options: ["Immunoglobulin reaction in graft rejection", "Complement", "Graft versus host reaction", "Immunoglobulin"],
+        correct: [1]
+      },
+      {
+        question: "List structural and biological peculiarities of measles virus:",
+        options: ["Contains RNA", "Contains DNA", "Has neuraminidase", "Has hemagglutinine", "Agglutinates erythrocytes of fowl", "Agglutinates monkey erythrocytes"],
+        correct: [0, 3, 4]
+      },
+      {
+        question: "How to detect and identify measles virus in cell culture?",
+        options: ["By CPE", "CPE is detection of multinucleated cells", "By detection of cytoplasmic and nuclear inclusions", "By IF", "By hemadsorption", "By hemadsorption inhibition", "By neutralization"],
+        correct: [0, 1, 2, 3, 4, 5, 6]
+      },
+      {
+        question: "Which material are used for laboratory diagnosis of measles and which methods?",
+        options: ["Blood", "Feces", "Nasal secretions", "For isolation of virus are used embryonated eggs", "For isolation are used cell culture", "For isolation are used newborn mice"],
+        correct: [0, 2, 4]
+      },
+      {
+        question: "List structural and biological properties of measles virus:",
+        options: ["Contain RNA", "Contain DNA", "Has neuraminidase", "Has hemagglutinin", "Can agglutinate chicken erythrocytes", "Can agglutinate monkey erythrocytes"],
+        correct: [0, 3, 5]
+      },
+      {
+        question: "List structural and biological properties of poliovirus:",
+        options: ["Contain DNA", "Has hemagglutinine", "For isolation are used cell culture", "For isolation are used chick embryos", "Has few serotypes", "Virus is antigenically stable"],
+        correct: [2, 4]
+      },
+      {
+        question: "Which material and methods are used for laboratory diagnosis of poliomyelitis?",
+        options: ["Serum", "Feces", "Urine", "Isolation of virus in cell culture", "Isolation of virus in chick embryos", "Examination of paired serum", "IF"],
+        correct: [0, 1, 3, 5]
+      },
+      {
+        question: "How to indicate and identify poliovirus in cell culture:",
+        options: ["By CPE", "By hemadsorbtion", "By hemadsorbtion inhibition", "By reaction of neutralization", "By syncytium formation", "By hemagglutination", "By hemagglutination inhibition"],
+        correct: [0, 3]
+      },
+      {
+        question: "List viruses of family Picornaviridae:",
+        options: ["Delta virus", "Poliovirus", "HAV", "HBV", "ECHO", "Coxsackie"],
+        correct: [1, 2, 4, 5]
+      },
+      {
+        question: "Which material and methods diagnosis are used for laboratory diagnosis of mumps?",
+        options: ["Saliva", "Feces", "Urine", "Serum", "Isolation of virus in amniotic cavity of chick embryos", "Isolation of virus in cell cultures"],
+        correct: [0, 2, 3, 4, 5]
+      },
+      {
+        question: "Spores can be destroyed by:",
+        options: ["Autoclaving at 120°C for 15-30 min", "Boiling", "Sunlight", "Pasteurisation", "Filtration", "Intermittent sterilization"],
+        correct: [0, 5]
+      },
+      {
+        question: "Which common properties have Rickettsia and Chlamydia?",
+        options: ["They are prokaryotes", "They have cell wall, cytoplasm, RNA and DNA", "They have only RNA", "They have only DNA", "They lack cell organization", "They are intracellular parasites"],
+        correct: [0, 1, 5]
+      },
+      {
+        question: "Which common properties have Rickettsia and viruses?",
+        options: ["They are intracellular parasites", "They can not grow on culture media", "For isolation are used chick embryos", "For isolation are used cell lines", "For isolation are used newborn mice", "They lack cell organization"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Which common properties have Rickettsia and bacteria?",
+        options: ["They are prokaryotes", "They have cell organization", "They are intracellular parasites", "They can not grow on culture media", "They have both RNA and DNA", "They are divided by binary fission"],
+        correct: [0, 4, 5]
+      },
+      {
+        question: "Interleukin 1 primarily acts on:",
+        options: ["T-lymphocytes", "Neutrophils", "B-lymphocytes", "Macrophages"],
+        correct: [0]
+      },
+      {
+        question: "Interleukin-1 is produced by:",
+        options: ["T-helper cells", "B-cells", "T-suppressor cells", "Monocytes", "NK"],
+        correct: [3]
+      },
+      {
+        question: "Interleukin-2 is secreted by:",
+        options: ["Macrophages", "CD4 cells", "CD8 cells", "Common T-cells"],
+        correct: [1]
+      },
+      {
+        question: "Which proteins of HIV virus take part in adsorption on susceptible cells?",
+        options: ["gp 41", "p 18", "p 24", "gp 120", "p 55", "p 8"],
+        correct: [3]
+      },
+      {
+        question: "List immunological abnormalities in HIV infection:",
+        options: ["Reduction in number of T4 cells", "Inversion of T4:T8 ratio", "Hypergammaglobulinemia predominantly IgG and IgA", "Polyclonal activation of B cells and increased spontaneous secretion of Ig", "Decreased cytotoxic responses by T cells and NK cells", "Decreased antibody response to new antigen"],
+        correct: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        question: "Name modes of transmission of HIV infection:",
+        options: ["By respiratory droplets", "By sexual contact", "By bites of arthropods", "By blood transfusion", "Through contaminated food", "Through contaminated water", "Through placenta"],
+        correct: [1, 3, 6]
+      },
+      {
+        question: "Factors which take part in pathogenesis of HIV infection:",
+        options: ["Increased level of T helper", "Increased level of lymphokines", "Activation of opportunistic microorganisms", "Activation of oncogenic viruses", "Inversion of T4:T8 ratio", "Altered monocyte/macrophage function"],
+        correct: [2, 3, 4, 5]
+      },
+      {
+        question: "What can we detect in blood in incubation period of HIV infection?",
+        options: ["Decreased in vitro lymphocyte proliferative response to mitogens and antigens", "Disgammaglobulinemia", "Decreased delayed hypersensitivity on skin testing", "Appearing of antibodies to HIV", "Enlargement of lymph nodes"],
+        correct: [3, 4]
+      },
+      {
+        question: "Which serological reactions are used for laboratory diagnosis of AIDS?",
+        options: ["CFT", "ELISA test", "Western blot", "Reaction of neutralization", "Reaction of non direct hemagglutination", "IH"],
+        correct: [1, 2]
+      },
+      {
+        question: "Name biological properties of HIV virus:",
+        options: ["Contains DNA", "Contains RNA", "Contains ssRNA", "Contains dsRNA", "Contains oncogene", "Contains reverse transcriptase"],
+        correct: [1, 2, 5]
+      },
+      {
+        question: "List viruses of family Retroviridae:",
+        options: ["Poliovirus", "HIV", "HTLV-1", "HAV", "HBV", "HTLV-2", "Cytomegalovirus"],
+        correct: [1, 2, 5]
+      },
+      {
+        question: "Sanitary indicative microorganisms of fecal contamination are:",
+        options: ["E. coli", "E. faecalis", "Hemolytic streptococci", "Staphylococcus", "Lactobacilli", "V. cholerae"],
+        correct: [0, 1]
+      },
+      {
+        question: "Sanitary indicative microorganisms of air are:",
+        options: ["S. aureus", "S. epidermidis", "S. saprophyticus", "Hemolytic streptococcus", "M. tuberculosis"],
+        correct: [0, 3]
+      },
+      {
+        question: "Selective media are:",
+        options: ["Endo media", "Levine media", "Meat peptone broth", "Salt yolk agar", "1% peptone water", "Alkaline media"],
+        correct: [3, 4, 5]
+      },
+      {
+        question: "Differential media are:",
+        options: ["Hiss media", "Endo media", "Mac Conkey", "Blood agar", "Blood tellurite agar", "TCBS"],
+        correct: [0, 1, 2]
+      },
+      {
+        question: "For Gram stain are used dyes:",
+        options: ["Gentian violet", "Iodine", "Alcohol", "Volutine", "Methylene blue", "Water solution of fuchsine"],
+        correct: [0, 1, 5]
+      },
+      {
+        question: "Dark-field microscopy are used for examination of:",
+        options: ["E. coli", "T. pallidum", "Staphylococcus", "V. cholerae", "Chlamydia", "Rickettsia"],
+        correct: [1, 3]
+      },
+      {
+        question: "Neisser method are used for:",
+        options: ["Detection of inclusion", "Detection of spores", "Detection of nucleoid", "Detection of flagella", "Detection of ribosomes"],
+        correct: [0]
+      },
+      {
+        question: "Name method of staining of M. tuberculosis and M. leprae:",
+        options: ["Ziehl-Neelsen method", "Neisser method", "Ozheshko method", "Gram stain", "Burry-Hins method", "Shefer-Fulton"],
+        correct: [0]
+      },
+      {
+        question: "For detection of capsule are used:",
+        options: ["Electron microscopy", "Gram stain", "Neisser method", "Burry-Hins", "Ziehl-Neelsen method", "Shefer-Fulton"],
+        correct: [0, 2]
+      },
+      {
+        question: "Dark ground microscopy is used to see:",
+        options: ["Refractive organs", "Capsule", "Flagella", "Fimbriae"],
+        correct: [2]
+      },
+      {
+        question: "Incubation period characterized by:",
+        options: ["Adsorption of microorganism on susceptible cells", "Release of microorganism in environment", "Appearing of antibodies", "Multiplication of microorganisms in human body", "Clinical symptoms"],
+        correct: [0, 3]
+      },
+      {
+        question: "Pathogenicity of microorganisms:",
+        options: ["Depends on environmental conditions", "Connected with toxigenicity", "Depends on factors of pathogenicity", "Depends on host defense mechanisms", "Depends on type of culture media"],
+        correct: [1, 2]
+      },
+      {
+        question: "Factors of pathogenicity are:",
+        options: ["Factors of adhesion and colonization", "Factors of invasion", "Antiphagocytic factors", "Endotoxins", "Exotoxins", "Microbial antagonism"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "To factors of pathogenicity belong:",
+        options: ["Plasmocoagulase", "Hyaluronidase", "Neuraminidase", "Enterotoxin", "Capsule", "Proteolytic activity"],
+        correct: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        question: "Exotoxins of microorganisms are:",
+        options: ["Proteins", "Heat labile", "Actively secreted into surrounding medium", "Highly antigenic", "Active in very minute doses", "Have specific tissue affinities", "Heat stable"],
+        correct: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        question: "Endotoxins of microorganisms are:",
+        options: ["LPS", "Heat stable", "No enzymic action", "Effect nonspecific", "No specific tissue affinity", "Weakly antigenic", "Action specifically neutralized by antibody"],
+        correct: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        question: "Types of immunologic response in transplant rejection:",
+        options: ["Type1", "Type II", "Type III", "Type IV"],
+        correct: [3]
+      },
+      {
+        question: "List structural peculiarities of HBV virus:",
+        options: ["Contains DNA", "Contains RNA", "Has hemagglutinin", "Has neuraminidase", "Has HBs-antigen", "Has HBe-antigen", "Has HBc-antigen"],
+        correct: [0, 4, 5, 6]
+      },
+      {
+        question: "Name biological properties of HBV virus:",
+        options: ["May be isolated in cell culture", "For isolation are used chick embryos", "Has oncogene", "Can be transmitted by blood transfusion", "May be transmitted by sexual contact", "Can cause direct cytopathic effect on hepatocytes", "Thermostable"],
+        correct: [2, 3, 4, 6]
+      },
+      {
+        question: "Which material and methods diagnosis are used for laboratory diagnosis of HBV?",
+        options: ["Serum", "Feces", "Blood", "Isolation of virus in cell culture", "Isolation of virus in chick embryos", "Detection of antiviral antibodies", "Detection of viral antigens"],
+        correct: [0, 2, 5, 6]
+      },
+      {
+        question: "Proteolytic activity can be detected:",
+        options: ["During inoculation in milk", "After inoculation in serum", "On media with gelatin", "By indole production", "By ammonia formation", "By hydrogen sulphide formation"],
+        correct: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        question: "A complete antigen is:",
+        options: ["Able to induce antibody formation", "To produce specific reaction with the antibody produced", "Protein", "Lipids", "Exotoxins", "Amino acids"],
+        correct: [0, 1, 2, 4]
+      },
+      {
+        question: "Haptens are:",
+        options: ["Substances incapable of inducing antibodies", "Can react specifically with antibodies", "Become immunogenic on combining with large molecule carrier", "Lipids", "Low weight proteins", "Proteins", "Exotoxins"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Autologous or self antigens are:",
+        options: ["Ordinary nonantigenic", "Sequestrated antigens not normally found free in circulation", "Tissues of brain", "Sperm", "Lens proteins", "Liver cells"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Development of tolerance is confined if antigen will be injected:",
+        options: ["To the embryo", "To the newborn", "To adult", "Orally", "Parenterally"],
+        correct: [0, 1, 3]
+      },
+      {
+        question: "The main aim of an adjuvant is to increase:",
+        options: ["Distribution", "Antigenicity", "Absorption", "Metabolism"],
+        correct: [1]
+      },
+      {
+        question: "Name serotypes of Clostridium botulinum which more frequently cause disease:",
+        options: ["Clostridium botulinum type A", "Clostridium botulinum type B", "Clostridium botulinum type E", "Clostridium botulinum type C1", "Clostridium botulinum type C2"],
+        correct: [0, 1, 2]
+      },
+      {
+        question: "For prophylaxis of gas gangrene are used:",
+        options: ["Surgery", "Tetanus toxoid", "Injection of polyvalent antitoxic specific serum", "Antibiotics", "Injection of monovalent antitoxic specific serum", "Specific toxoid"],
+        correct: [0, 2, 3, 5]
+      },
+      {
+        question: "For serological identification of species of Clostridia are used:",
+        options: ["Precipitation reaction", "Agglutination", "Neutralization of toxins by specific antitoxic serum (biological method)", "CFT", "Reaction of non direct hemagglutination"],
+        correct: [2]
+      },
+      {
+        question: "Describe morphological and tincitorial properties of Clostridium botulinum:",
+        options: ["Bacilli", "Gram positive", "Gram negative", "Non sporing", "Motile", "Capsulated", "Sporing"],
+        correct: [0, 1, 6]
+      },
+      {
+        question: "For laboratory diagnosis of botulism are used:",
+        options: ["Bacteriological examination of food products", "Detection in patient blood of exotoxin by biological method", "Allergic skin test", "Detection of exotoxin in patient serum by non direct hemagglutination", "IF"],
+        correct: [0, 1, 3]
+      },
+      {
+        question: "Immune serum and immunoglobulins are used:",
+        options: ["To create active immunity", "To create passive immunity", "For serotherapy of infectious diseases", "For seroprophylaxis of infectious diseases"],
+        correct: [1, 2, 3]
+      },
+      {
+        question: "For bacteriological diagnosis of colienteritis from diseased children we must take:",
+        options: ["Blood", "Feces", "Urine", "Serum", "CSF"],
+        correct: [1]
+      },
+      {
+        question: "In case of typhoid fever at the first week we must take for laboratory diagnosis:",
+        options: ["Feces", "Urine", "Blood", "Sputum", "Serum"],
+        correct: [2]
+      },
+      {
+        question: "In case of typhoid fever at the third week for laboratory diagnosis we can use:",
+        options: ["Serum for reaction of agglutination", "Blood to detect microorganisms", "Urine for bacteriological method", "Feces for bacteriological method", "Bile for bacteriological method"],
+        correct: [0, 2, 3, 4]
+      },
+      {
+        question: "Positive result of Vidal reaction may be:",
+        options: ["After infection caused by S. typhi", "At the first week of typhoid fever", "At the second week of typhoid fever", "After vaccination by vaccine against S. typhi", "After classical louse born typhus"],
+        correct: [0, 2, 3]
+      },
+      {
+        question: "For laboratory diagnosis of dysentery we can use:",
+        options: ["Inoculation blood of patient on culture media", "Microscopic examination of feces", "Examination serum of patient in reaction of CFT", "Bacteriological examination of feces", "Allergic skin test"],
+        correct: [3, 4]
+      },
+      {
+        question: "For laboratory diagnosis of gastroenteritis caused by salmonella are used:",
+        options: ["Microscopic examination of feces", "Microscopic examination of blood", "Bacteriological examination of feces", "Inoculation of contaminated food products on differential media", "Examination of sputum"],
+        correct: [2, 3]
+      },
+      {
+        question: "Name causative agents of cholera:",
+        options: ["Vibrio cholera classica", "Vibrio cholerae eitor", "Vibrio parahaemolyticus", "Vibrio cholerae O139", "Vibrio cholerae O1", "Vibrio mimicus"],
+        correct: [0, 1, 3, 4]
+      },
+      {
+        question: "Based on which properties we can differ V. cholerae from other vibrions?",
+        options: ["Based on the presence of O1 antigen", "Based on the presence of O4 antigen", "Use of Heiberg group", "Indole production", "Production of choleragene"],
+        correct: [0, 2, 3, 4]
+      },
+      {
+        question: "In case of cholera for laboratory diagnosis we can use:",
+        options: ["Examination of feces by IF", "Bacteriological examination of feces", "Biological method", "Inoculation blood on culture media", "Detection of DNA of V. cholerae in material from patient by PCR"],
+        correct: [0, 1, 4]
+      },
+      {
+        question: "Rossette formation with sheep RBCs indicate numbers of:",
+        options: ["T-cells", "Neutrophils", "B-cells", "Monocytes"],
+        correct: [0]
+      },
+      {
+        question: "T-cells are identified by:",
+        options: ["Rossette formation with sheep RBCs", "Immunoglobulins on their surface", "EAC rosette sheep erythrocytes", "Has filamentous projections on their surface"],
+        correct: [0]
+      },
+      {
+        question: "For cultivation of Corynebacterium diphtheriae are used:",
+        options: ["Loeffler's serum slope", "Tellurite blood medium", "MPA", "Endo media", "1% peptone water", "Blood agar"],
+        correct: [0, 1]
+      },
+      {
+        question: "For detection of toxigenicity of Corynebacterium diphtheriae are used:",
+        options: ["Slide agglutination", "Urease test", "Intracutaneous injection of guinea pig", "Eleks gel precipitation test", "Flocculation reaction"],
+        correct: [2, 3, 4]
+      },
+      {
+        question: "Name preparations to create active immunity against diphtheria:",
+        options: ["DPT", "DT", "Antitoxic serum", "Diagnostic serum", "TABTE vaccine"],
+        correct: [0, 1]
+      },
+      {
+        question: "Name preparations for specific treatment of diphtheria:",
+        options: ["Horse antidiphtheric serum", "DPT", "DT", "Diphtheria toxoid", "Diagnostic serum"],
+        correct: [0]
+      },
+      {
+        question: "To detect antitoxic immunity against diphtheria are used:",
+        options: ["CFT", "ELISA", "Western blot", "Non direct hemagglutination", "Schick's test", "Dick's test"],
+        correct: [4, 5]
+      },
+      {
+        question: "Name source and modes of transmission of Corynebacterium diphtheriae:",
+        options: ["Patient", "Carrier", "By contact", "By respiratory droplets", "Through contaminated milk", "Bites of arthropods"],
+        correct: [0, 1, 2, 3, 4]
+      },
+      {
+        question: "Morphological properties of Corynebacterium diphtheriae are:",
+        options: ["Bacilli gram positive", "Bacilli gram negative", "Have bipolar inclusions", "Nonsporing", "Nonmotile", "Noncapsulated"],
+        correct: [0, 2, 3, 4, 5]
+      },
+      {
+        question: "Which is concerned with cell mediated immunity:",
+        options: ["B-lymphocytes", "T-lymphocytes", "Monocytes", "Eosinophils"],
+        correct: [1]
+      },
+      {
+        question: "Function of T-lymphocytes is:",
+        options: ["Production of interferon", "Lymphokine production", "Rosette formation", "All of the above"],
+        correct: [3]
+      },
+      {
+        question: "T-cell mature in:",
+        options: ["Peyers patch", "Thymus", "Lymph node", "Bursa of Fabricius"],
+        correct: [1]
+      },
+      {
+        question: "T4/T8 ratio reversal is seen in:",
+        options: ["T-cell lymphoma", "Hairy cell leukemia", "AIDS", "Infectious mononucleosis"],
+        correct: [2]
+      },
+      {
+        question: "Type of receptor present on T-cells:",
+        options: ["IgG", "IgA", "Prostaglandins", "CD4"],
+        correct: [3]
+      },
+      {
+        question: "The exact part of the antigen that reacts with immune system is called:",
+        options: ["Clone", "Idiotope", "Epitope", "Effector"],
+        correct: [2]
+      },
+      {
+        question: "T helper cells recognizes:",
+        options: ["MHC-II", "MHC-I", "Surface Ig", "Processed peptides"],
+        correct: [0]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswers = [];
+    let answered = false;
+    let totalAnswered = 0;
+    let userName = '';
+    let quizMode = 'sequential';
+    let randomMode = 'custom';
+    let questionCount = 5;
+    let activeQuestions = [];
+    let questionStates = {};
+    let answerShown = false;
+
+    function selectMode(mode, element) {
+      document.querySelectorAll('.options-section .option-btn').forEach(btn => {
+        if (btn.onclick.toString().includes('selectMode')) {
+          btn.classList.remove('selected');
+        }
+      });
+      element.classList.add('selected');
+      quizMode = mode;
+      
+      // Show/hide custom input section based on mode
+      const customSection = document.getElementById('customInputSection');
+      if (mode === 'sequential') {
+        customSection.classList.remove('show');
+      } else {
+        customSection.classList.add('show');
+      }
+    }
+
+    function selectRandomMode(mode, element) {
+      document.querySelectorAll('#customInputSection .option-group .option-btn').forEach(btn => btn.classList.remove('selected'));
+      element.classList.add('selected');
+      randomMode = mode;
+      
+      // Show/hide custom input box
+      const inputBox = document.getElementById('customInputBox');
+      if (mode === 'all') {
+        inputBox.style.display = 'none';
+      } else {
+        inputBox.style.display = 'block';
+      }
+    }
+
+    function startQuiz(event) {
+      if (event) event.preventDefault();
+
+      userName = document.getElementById('userName').value.trim();
+      if (!userName) {
+        alert('Please enter your name');
+        return;
+      }
+
+      currentQuestion = 0;
+      score = 0;
+      totalAnswered = 0;
+      selectedAnswers = [];
+      answered = false;
+      questionStates = {};
+
+      let selectedQuestions;
+      
+      if (quizMode === 'sequential') {
+        selectedQuestions = quizData.slice();
+      } else {
+        let numQuestions;
+        if (randomMode === 'all') {
+          numQuestions = quizData.length;
+        } else {
+          const customInput = document.getElementById('customQuestionCount').value;
+          const parsed = parseInt(customInput, 10);
+          if (!parsed || parsed < 1) {
+            alert('Please enter a valid number of questions');
+            return;
+          }
+          numQuestions = Math.min(parsed, quizData.length);
+        }
+        
+        let tempQuestions = quizData.slice();
+        selectedQuestions = [];
+        for (let i = 0; i < numQuestions && tempQuestions.length > 0; i++) {
+          const randomIdx = Math.floor(Math.random() * tempQuestions.length);
+          selectedQuestions.push(tempQuestions[randomIdx]);
+          tempQuestions.splice(randomIdx, 1);
+        }
+        selectedQuestions = selectedQuestions.sort(() => Math.random() - 0.5);
+      }
+
+      activeQuestions = selectedQuestions;
+      activeQuestions.forEach((_, idx) => {
+        questionStates[idx] = 'unanswered';
+      });
+
+      document.getElementById('welcomeScreen').classList.add('hidden');
+      document.getElementById('quizScreen').classList.remove('hidden');
+      document.getElementById('userInfo').textContent = `👤 ${userName}`;
+      
+      loadQuestion();
+      buildQuestionIndex();
+    }
+
+    function buildQuestionIndex() {
+      const container = document.getElementById('questionIndexContainer');
+      container.innerHTML = '';
+      activeQuestions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'question-index-btn';
+        btn.textContent = idx + 1;
+        btn.type = 'button';
+        
+        const state = questionStates[idx];
+        if (state === 'correct') btn.classList.add('answered-correct');
+        else if (state === 'incorrect') btn.classList.add('answered-incorrect');
+        else if (state === 'skipped') btn.classList.add('skipped');
+        
+        if (idx === currentQuestion) btn.classList.add('current');
+        
+        btn.onclick = () => jumpToQuestion(idx);
+        container.appendChild(btn);
+      });
+    }
+
+    function jumpToQuestion(idx) {
+      currentQuestion = idx;
+      selectedAnswers = [];
+      answered = false;
+      loadQuestion();
+      buildQuestionIndex();
+    }
+
+    function loadQuestion() {
+      const question = activeQuestions[currentQuestion];
+      const qNum = currentQuestion + 1;
+      document.getElementById('questionText').textContent = `Q${qNum}. ${question.question}`;
+      document.getElementById('progressText').textContent = `Question ${qNum} of ${activeQuestions.length}`;
+      
+      const optionsContainer = document.getElementById('optionsContainer');
+      optionsContainer.innerHTML = '';
+      
+      // Randomize option order with indices
+      const optionsWithIndices = question.options.map((option, index) => ({ option, originalIndex: index }));
+      for (let i = optionsWithIndices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [optionsWithIndices[i], optionsWithIndices[j]] = [optionsWithIndices[j], optionsWithIndices[i]];
+      }
+      
+      optionsWithIndices.forEach(({ option, originalIndex }) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'option';
+        optionDiv.onclick = () => selectOption(originalIndex);
+        optionDiv.innerHTML = `
+          <div class="option-checkbox"></div>
+          <span>${option}</span>
+        `;
+        optionsContainer.appendChild(optionDiv);
+      });
+
+      updateProgressBar();
+      selectedAnswers = [];
+      answered = false;
+      answerShown = false;
+      document.getElementById('nextBtn').disabled = true;
+      document.getElementById('selectedInfo').textContent = '';
+    }
+
+    function selectOption(originalIndex) {
+      if (answered) return;
+      
+      const options = document.querySelectorAll('.option');
+      const isSelected = selectedAnswers.includes(originalIndex);
+      
+      if (isSelected) {
+        selectedAnswers = selectedAnswers.filter(i => i !== originalIndex);
+      } else {
+        selectedAnswers.push(originalIndex);
+      }
+      
+      // Update visual selection based on option display order
+      options.forEach((opt, displayIndex) => {
+        const optText = opt.querySelector('span').textContent;
+        const question = activeQuestions[currentQuestion];
+        const originalIdx = question.options.findIndex(o => o === optText);
+        
+        if (selectedAnswers.includes(originalIdx)) {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+      
+      updateSelectedInfo();
+      document.getElementById('nextBtn').disabled = selectedAnswers.length === 0;
+    }
+
+    function updateSelectedInfo() {
+      const count = selectedAnswers.length;
+      const infoText = count === 0 ? '' : `Selected: ${count} option${count > 1 ? 's' : ''}`;
+      document.getElementById('selectedInfo').textContent = infoText;
+    }
+
+    function nextQuestion() {
+      // If answer hasn't been shown yet, show it
+      if (!answerShown) {
+        if (selectedAnswers.length === 0) return;
+
+        const question = activeQuestions[currentQuestion];
+        const options = document.querySelectorAll('.option');
+        
+        answered = true;
+        totalAnswered++;
+        
+        const isCorrect = JSON.stringify(selectedAnswers.sort((a, b) => a - b)) === 
+                          JSON.stringify(question.correct.sort((a, b) => a - b));
+        
+        if (isCorrect) {
+          score++;
+          questionStates[currentQuestion] = 'correct';
+          options.forEach((opt, displayIndex) => {
+            const optText = opt.querySelector('span').textContent;
+            const originalIdx = question.options.findIndex(o => o === optText);
+            if (selectedAnswers.includes(originalIdx)) {
+              opt.classList.add('correct');
+            }
+          });
+        } else {
+          questionStates[currentQuestion] = 'incorrect';
+          options.forEach((opt, displayIndex) => {
+            const optText = opt.querySelector('span').textContent;
+            const originalIdx = question.options.findIndex(o => o === optText);
+            
+            // If this option was selected
+            if (selectedAnswers.includes(originalIdx)) {
+              // If it's in the correct answers, mark as correct (green)
+              if (question.correct.includes(originalIdx)) {
+                opt.classList.add('correct');
+              } else {
+                // If it's not in correct answers, mark as incorrect (red)
+                opt.classList.add('incorrect');
+              }
+            } 
+            // If this option wasn't selected but should have been
+            else if (question.correct.includes(originalIdx)) {
+              opt.classList.add('correct');
+            }
+          });
+        }
+        
+        updateAccuracyBar();
+        buildQuestionIndex();
+        document.getElementById('nextBtn').textContent = 'Continue to Next →';
+        answerShown = true;
+        return;
+      }
+
+      // If answer has been shown, move to next question
+      currentQuestion++;
+      answerShown = false;
+      buildQuestionIndex();
+      
+      if (currentQuestion < activeQuestions.length) {
+        loadQuestion();
+        document.getElementById('nextBtn').textContent = currentQuestion === activeQuestions.length - 1 ? 'Finish Quiz' : 'Next Question';
+      } else {
+        showResults();
+      }
+    }
+
+    function skipQuestion() {
+      questionStates[currentQuestion] = 'skipped';
+      totalAnswered++;
+      answerShown = false;
+      buildQuestionIndex();
+      
+      currentQuestion++;
+      buildQuestionIndex();
+      if (currentQuestion < activeQuestions.length) {
+        selectedAnswers = [];
+        answered = false;
+        loadQuestion();
+        document.getElementById('nextBtn').disabled = true;
+        document.getElementById('nextBtn').textContent = currentQuestion === activeQuestions.length - 1 ? 'Finish Quiz' : 'Next Question';
+      } else {
+        showResults();
+      }
+    }
+
+    function updateAccuracyBar() {
+      const accuracy = activeQuestions.length > 0 ? (score / activeQuestions.length) * 100 : 0;
+      const accuracyFixed = accuracy.toFixed(2);
+      document.getElementById('progressBar').style.width = accuracy + '%';
+      document.getElementById('accuracyText').textContent = `Correct: ${score}/${activeQuestions.length} (${accuracyFixed}%)`;
+    }
+
+    function updateProgressBar() {
+      const progressPercentage = (currentQuestion / activeQuestions.length) * 100;
+      document.getElementById('progressBar').style.width = progressPercentage + '%';
+    }
+
+    function showResults() {
+      document.getElementById('quizScreen').classList.add('hidden');
+      document.getElementById('resultsScreen').classList.remove('hidden');
+      
+      const percentage = Math.round((score / activeQuestions.length) * 100);
+      const scoreMessage = percentage >= 80 ? '⭐ Outstanding!' : 
+                          percentage >= 60 ? '👍 Good Job!' : 
+                          '📚 Keep Learning!';
+      
+      document.getElementById('finalScore').textContent = `${score}/${activeQuestions.length} ${scoreMessage}`;
+      document.getElementById('correctCount').textContent = score;
+      document.getElementById('percentageScore').textContent = percentage + '%';
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      selectedAnswers = [];
+      answered = false;
+      totalAnswered = 0;
+      questionStates = {};
+      answerShown = false;
+      
+      document.getElementById('quizScreen').classList.add('hidden');
+      document.getElementById('resultsScreen').classList.add('hidden');
+      document.getElementById('welcomeScreen').classList.remove('hidden');
+      document.getElementById('userName').value = '';
+      document.getElementById('userInfo').textContent = '';
+      document.getElementById('progressBar').style.width = '0%';
+      document.getElementById('nextBtn').textContent = 'Next Question';
+    }
+  </script>
+</body>
+</html>
